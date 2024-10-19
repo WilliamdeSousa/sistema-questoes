@@ -1,0 +1,113 @@
+<!-- MathJax -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script type="text/javascript">
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        macros: {
+          degree: "{^{\\circ}}",  // Define \degree as the ° symbol
+          sen: "\\operatorname{sen}",  // Define \sen to display as "sen"
+          tg: "\\operatorname{tg}" 
+        }
+      }
+    };
+    
+    document.querySelector('.titulo-solucao').addEventListener('click', function () {
+        var solucao = document.querySelector('.solucao');
+        if (solucao.style.display === 'none') {
+            solucao.style.display = 'block';
+        } else {
+            solucao.style.display = 'none';
+        }
+    });
+</script>
+
+<style>
+    body {
+        background-color: rgb(221, 212, 163);
+    }
+
+    main {
+        max-width: 900px;
+        padding: 20px;
+        margin: auto;
+        border-radius: 10px;
+        background-color: white;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    button {
+        display: block;
+        margin: auto;
+    }
+
+    .titulo-solucao {
+        background-color: #f1f1f1;
+        border: 1px solid #ccc;
+        padding: 10px;
+        cursor: pointer;
+        width: fit-content;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    /* Estilizando o conteúdo que será mostrado/oculto */
+    .solucao {
+        margin-top: 10px;
+    }
+    
+</style>
+
+
+<body>
+<main>
+
+<h1>Questionario sobre {{ assunto.assunto }}</h1>
+
+<hr>
+
+{% if lista_questoes %}
+
+<ol class="lista-questoes">
+
+    {% for questao in lista_questoes %}
+
+    <li class="questao">
+        <p class="enunciado">
+            {{ questao.enunciado }}
+        </p>
+
+        <ul class="alternativas">
+            {% for alternativa in questao.alternativas.all %}
+            <li>
+                <input type="radio" name="alternativa" id="opcao1">
+                <label for="opcao1">{{ alternativa.alternativa }}</label>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <section class="solucao">
+            <p class="titulo-solucao">Solução</p>
+
+            <p class="solucao">
+                {{ questao.solucao }}
+            </p>
+        </section>
+    </li>
+
+    {% endfor %}
+
+</ol>
+
+<button>Enviar</button>
+{% else %}
+    <p>Assunto sem questoes no momento.</p>
+{% endif %}
+</main>
+</body>

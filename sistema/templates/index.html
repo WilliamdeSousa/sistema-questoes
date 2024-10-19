@@ -1,0 +1,56 @@
+<style>
+    body {
+        background-color: rgb(221, 212, 163);
+    }
+
+    main {
+        max-width: 900px;
+        padding: 20px;
+        margin: auto;
+        border-radius: 10px;
+        background-color: white;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    button {
+        display: block;
+        margin: auto;
+    }
+
+    .titulo-solucao {
+        background-color: #f1f1f1;
+        border: 1px solid #ccc;
+        padding: 10px;
+        cursor: pointer;
+        width: fit-content;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    /* Estilizando o conteúdo que será mostrado/oculto */
+    .solucao {
+        margin-top: 10px;
+    }
+    
+</style>
+
+
+<body>
+<main>
+<h1>Sistema de Monitoramento</h1>
+<hr>
+{% if assuntos %}
+    <h2>Assuntos:</h2>
+    <ul>
+    {% for assunto in assuntos %}
+        <li><a href="{% url 'sistema:questionario' assunto.id %}">{{ assunto.assunto }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Nenhum assunto até o momento.</p>
+{% endif %}
+</main>
+</body>
